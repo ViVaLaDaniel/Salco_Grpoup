@@ -1,9 +1,17 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, FormEvent } from 'react';
 import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
 import { GoogleGenAI } from '@google/genai';
 import { motion, AnimatePresence } from 'motion/react';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let ai: GoogleGenAI | null = null;
+try {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (apiKey) {
+    ai = new GoogleGenAI({ apiKey });
+  }
+} catch (e) {
+  console.warn('Gemini API initialization failed. Chatbot may not work.', e);
+}
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +24,7 @@ export default function Chatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!chatRef.current) {
+    if (!chatRef.current && ai) {
       chatRef.current = ai.chats.create({
         model: 'gemini-3.1-flash-lite-preview',
         config: {
@@ -34,13 +42,19 @@ export default function Chatbot() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSend = async (e?: React.FormEvent) => {
+  const handleSend = async (e?: FormEvent) => {
     e?.preventDefault();
     if (!input.trim() || isLoading) return;
     
     const userText = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', text: userText }]);
+    
+    if (!chatRef.current) {
+      setMessages(prev => [...prev, { role: 'model', text: 'Entschuldigung, der AI-Dienst ist gerade nicht verfügbar.' }]);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
