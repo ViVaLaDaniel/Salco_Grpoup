@@ -1,8 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  
+  --color-salco-navy: #1A3A6E;
+  --color-salco-gold: #C9A84C;
+  --color-salco-bg: #FAFAF8;
+  --color-salco-dark: #0F1F3D;
+  --color-salco-text: #1A1A1A;
+  --color-salco-muted: #6B6B6B;
 }
 
 html {
@@ -13,4 +21,6 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-salco-bg);
+  color: var(--color-salco-text);
 }

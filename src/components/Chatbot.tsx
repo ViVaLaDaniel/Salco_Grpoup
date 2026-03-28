@@ -59,7 +59,7 @@ export default function Chatbot() {
       {/* Chat Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 w-14 h-14 bg-amber-500 text-slate-900 rounded-full shadow-lg flex items-center justify-center hover:bg-amber-400 hover:scale-110 transition-all z-50 ${isOpen ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
+        className={`fixed bottom-6 right-6 w-14 h-14 bg-[var(--color-salco-gold)] text-[var(--color-salco-navy)] rounded-full shadow-lg flex items-center justify-center hover:bg-white hover:scale-110 transition-all z-50 ${isOpen ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
       >
         <MessageCircle size={28} />
       </button>
@@ -72,39 +72,39 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 w-[350px] sm:w-[400px] h-[500px] max-h-[80vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50 border border-slate-100"
+            className="fixed bottom-6 right-6 w-[350px] sm:w-[400px] h-[500px] max-h-[80vh] bg-white rounded-sm shadow-2xl flex flex-col overflow-hidden z-50 border border-slate-100"
           >
             {/* Header */}
-            <div className="bg-slate-900 text-white p-4 flex justify-between items-center">
+            <div className="bg-[var(--color-salco-navy)] text-white p-4 flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center text-slate-900 font-bold">
+                <div className="w-8 h-8 bg-[var(--color-salco-gold)] rounded-full flex items-center justify-center text-[var(--color-salco-navy)] font-bold">
                   S
                 </div>
                 <div>
                   <h3 className="font-bold text-sm">SALCO Assistent</h3>
-                  <p className="text-xs text-slate-400">Online</p>
+                  <p className="text-xs text-white/70">Online</p>
                 </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="text-slate-400 hover:text-white transition-colors"
+                className="text-white/70 hover:text-white transition-colors"
               >
                 <X size={20} />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[var(--color-salco-bg)]">
               {messages.map((msg, idx) => (
                 <div 
                   key={idx} 
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div 
-                    className={`max-w-[80%] p-3 rounded-2xl text-sm ${
+                    className={`max-w-[80%] p-3 text-sm ${
                       msg.role === 'user' 
-                        ? 'bg-amber-500 text-slate-900 rounded-tr-sm' 
-                        : 'bg-white text-slate-700 shadow-sm border border-slate-100 rounded-tl-sm'
+                        ? 'bg-[var(--color-salco-navy)] text-white rounded-l-lg rounded-tr-lg' 
+                        : 'bg-white text-[var(--color-salco-text)] shadow-sm border border-slate-100 rounded-r-lg rounded-tl-lg'
                     }`}
                   >
                     {msg.text}
@@ -113,8 +113,8 @@ export default function Chatbot() {
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white p-3 rounded-2xl rounded-tl-sm shadow-sm border border-slate-100">
-                    <Loader2 size={16} className="animate-spin text-amber-500" />
+                  <div className="bg-white p-3 rounded-r-lg rounded-tl-lg shadow-sm border border-slate-100">
+                    <Loader2 size={16} className="animate-spin text-[var(--color-salco-gold)]" />
                   </div>
                 </div>
               )}
@@ -128,12 +128,12 @@ export default function Chatbot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ihre Frage..."
-                className="flex-1 bg-slate-50 border border-slate-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                className="flex-1 bg-[var(--color-salco-bg)] border border-slate-200 rounded-sm px-4 py-2 text-sm focus:outline-none focus:border-[var(--color-salco-navy)] transition-all"
               />
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="w-10 h-10 bg-amber-500 text-slate-900 rounded-full flex items-center justify-center hover:bg-amber-400 disabled:opacity-50 disabled:hover:bg-amber-500 transition-colors shrink-0"
+                className="w-10 h-10 bg-[var(--color-salco-navy)] text-white rounded-sm flex items-center justify-center hover:bg-[var(--color-salco-dark)] disabled:opacity-50 transition-colors shrink-0"
               >
                 <Send size={18} className="ml-0.5" />
               </button>
